@@ -56,7 +56,6 @@ class Main extends PluginBase implements Listener {
      * @param Player $player
      */
     public function spawnItem(EnderChest $chest, $item, Player $player) : void {
-        $item->setCount(1);
         $pk = new AddItemActorPacket();
         $pk->entityRuntimeId = Entity::$entityCount++;
         $pk->item = $item;
