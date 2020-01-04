@@ -40,7 +40,7 @@ class GiveChestCommand extends Command implements PluginIdentifiableCommand {
             return false;
         }
         if(!isset($args[0])) {
-            $sender->sendMessage(TF::RED . "Usa: /givechest {quantità}");
+            $sender->sendMessage($this->getUsage());
             return false;
         }
         if(!is_numeric($args[0]) or $args[0] <= 0) {
