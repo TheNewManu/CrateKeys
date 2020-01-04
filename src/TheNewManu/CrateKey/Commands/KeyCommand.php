@@ -37,7 +37,7 @@ class KeyCommand extends Command implements PluginIdentifiableCommand {
             return false;
         }
         if(!isset($args[2])) {
-            $sender->sendMessage(TF::WHITE . "Usa: /keyall {player} {key} {quantità}");
+            $sender->sendMessage($this->getUsage());
             return false;
         }
         if(!$this->getPlugin()->getServer()->getPlayer($args[0]) instanceof Player) {
