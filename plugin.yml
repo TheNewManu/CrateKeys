@@ -1,0 +1,19 @@
+name: CrateKeys
+author: TheNewManu
+version: 1.0.0
+api: 3.0.0
+main: TheNewManu\CrateKey\Main
+
+permissions:
+  cratekey:
+    children:
+      cratekey.command:
+        children:
+          cratekey.command.key:
+            default: op
+          cratekey.command.keyall:
+            default: op
+          cratekey.command.givechest:
+            default: op
+          cratekey.command.keylist:
+            default: true
