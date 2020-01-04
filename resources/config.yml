@@ -1,0 +1,53 @@
+# Plugin by TheNewManu.
+
+# Lista delle keys
+### Esempio ###
+# NomeKey:
+#   ID: id
+#   Damage: damage
+#   CustomName: Custom Name
+#   Description: Descrizione
+### Esempio ###
+keys:
+  KeyTest:
+    ID: 131
+    Damage: 0
+    CustomName: "§7-=[ §eKeyTest §7]=-"
+    Description: "KeyTest Description"
+  KeyTest2:
+    ID: 131
+    Damage: 0
+    CustomName: "§7-=[ §cKeyTest2 §7]=-"
+    Description: "KeyTest2 Description"
+
+# Comandi da far eseguire all'apertura di una Key (Con rispettivi messaggi/title)
+### Esempio ###
+#  NomeKey:
+#  - command: givemoney {player} 100
+#    message: "Hai vinto 100 money"
+#    title: "Win"
+#    subtitle: "100$"
+### Esempio ###
+rewards:
+  KeyTest:
+  - command: "tell {player} Comando1"
+    message: "Message1"
+    title: "Title1"
+    subtitle: "SubTitle1"
+    spawn-item: "349:0:1"
+  - command: "tell {player} Comando2"
+    message: "Message2"
+    title: "Title2"
+    subtitle: "SubTitle2"
+    spawn-item: "349:0:1"
+  KeyTest2:
+  - command: "tell {player} Comando3"
+    message: "Message3"
+    title: "Title3"
+    subtitle: "SubTitle3"
+    spawn-item: "349:0:1"
+  - command: "tell {player} Comando4"
+    message: "Message4"
+    title: "Title4"
+    subtitle: "SubTitle4"
+    spawn-item: "349:0:1"
