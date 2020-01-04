@@ -27,7 +27,7 @@ keys:
 #    message: "Hai vinto 100 money"
 #    title: "Win"
 #    subtitle: "100$"
-#    spawn-item: "276:0:1"
+#    spawn-item: "276:0:1" (id:damage:amount)
 ### Esempio ###
 rewards:
   KeyTest:
