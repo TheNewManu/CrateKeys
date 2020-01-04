@@ -37,7 +37,7 @@ class KeyAllCommand extends Command implements PluginIdentifiableCommand {
             return false;
         }
         if(!isset($args[1])) {
-            $sender->sendMessage(TF::WHITE . "Usa: /keyall {key} {quantità}");
+            $sender->sendMessage($this->getUsage());
             return false;
         }
         if(!isset($config["keys"][$args[0]])) {
