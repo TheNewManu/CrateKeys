@@ -3,12 +3,14 @@
 namespace TheNewManu\CrateKey\Commands;
 
 use pocketmine\Player;
+use pocketmine\plugin\Plugin;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\command\PluginIdentifiableCommand;
 use pocketmine\utils\TextFormat as  TF;
 use TheNewManu\CrateKey\Main;
 
-class KeyListCommand extends Command {
+class KeyListCommand extends Command implements PluginIdentifiableCommand {
 
     /** @var Main */
     private $plugin;
@@ -39,7 +41,7 @@ class KeyListCommand extends Command {
     /**
      * @return Main
      */
-    public function getPlugin() : Main {
+    public function getPlugin() : Plugin {
         return $this->plugin;
     }
 }

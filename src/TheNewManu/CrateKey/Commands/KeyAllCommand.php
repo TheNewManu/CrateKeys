@@ -3,13 +3,15 @@
 namespace TheNewManu\CrateKey\Commands;
 
 use pocketmine\Player;
+use pocketmine\plugin\Plugin;
 use pocketmine\item\ItemFactory;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\command\PluginIdentifiableCommand;
 use pocketmine\utils\TextFormat as  TF;
 use TheNewManu\CrateKey\Main;
 
-class KeyAllCommand extends Command {
+class KeyAllCommand extends Command implements PluginIdentifiableCommand {
 
     /** @var Main */
     private $plugin;
@@ -35,7 +37,7 @@ class KeyAllCommand extends Command {
             return false;
         }
         if(!isset($args[1])) {
-            $sender->sendMessage(TF::WHITE . "Usage: /keyall {key} {quantità}");
+            $sender->sendMessage(TF::WHITE . "Usa: /keyall {key} {quantità}");
             return false;
         }
         if(!isset($config["keys"][$args[0]])) {
@@ -63,7 +65,7 @@ class KeyAllCommand extends Command {
     /**
      * @return Main
      */
-    public function getPlugin() : Main {
+    public function getPlugin() : Plugin {
         return $this->plugin;
     }
 }
