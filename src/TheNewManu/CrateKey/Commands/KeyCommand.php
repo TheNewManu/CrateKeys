@@ -20,7 +20,7 @@ class KeyCommand extends Command implements PluginIdentifiableCommand {
      * @param Main $plugin
      */
     public function __construct(Main $plugin){
-        parent::__construct("key", "Givva una key a uno specifico player.", "Usage: /key {player} {key} {quantità}");
+        parent::__construct("key", $plugin->translateString("key.description"), "Usage: /key {player} {key} {amount}");
         $this->setPermission("cratekey.command.key");
         $this->plugin = $plugin;
    }
@@ -41,15 +41,15 @@ class KeyCommand extends Command implements PluginIdentifiableCommand {
             return false;
         }
         if(!$this->getPlugin()->getServer()->getPlayer($args[0]) instanceof Player) {
-            $sender->sendMessage(TF::RED ."Player non online."); 
+            $sender->sendMessage($this->getPlugin()->translateString("key.playerNotOnline", [$args[0]])); 
             return false;
         }
         if(!isset($config["keys"][$args[1]])) {
-            $sender->sendMessage(TF::RED . "Key inesistente. Per la lista delle Key usa /keylist");
+            $sender->sendMessage($this->getPlugin()->translateString("key.keyNotExist", [$args[1]]));
             return false;
         }
         if(!is_numeric($args[2]) or $args[2] <= 0) {
-            $sender->sendMessage(TF::RED . "La quantità deve essere numerica e maggiore di 0");
+            $sender->sendMessage($this->getPlugin()->translateString("key.wrongAmount"));
             return false;
         }
         $keyID = $config["keys"][$args[1]]["ID"];
@@ -60,8 +60,8 @@ class KeyCommand extends Command implements PluginIdentifiableCommand {
             ->setLore([$args[1]])
             ->setCustomName($keyCustomName)
         );
-        $target->sendMessage(TF::YELLOW . "Hai ricevuto " . TF::RED . $args[2] . " " . TF::YELLOW .  $args[1]);
-        $sender->sendMessage(TF::YELLOW . "Hai dato " . TF::RED . $args[2] . " " . TF::YELLOW . $args[1] . " a " . TF::RED . $target->getName());
+        $target->sendMessage($this->getPlugin()->translateString("key.receiveKey", [$args[2], $args[1]]));
+        $sender->sendMessage($this->getPlugin()->translateString("key.giveKey", [$args[2], $args[1], $args[0]]));
         return true;
     }
     

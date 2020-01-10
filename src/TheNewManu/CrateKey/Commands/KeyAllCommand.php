@@ -20,7 +20,7 @@ class KeyAllCommand extends Command implements PluginIdentifiableCommand {
      * @param Main $plugin
      */
     public function __construct(Main $plugin){
-        parent::__construct("keyall", "Givva una key a tutti i player online.", "Usage: /keyall {key} {quantità}");
+        parent::__construct("keyall", $plugin->translateString("keyall.description"), "Usage: /keyall {key} {quantità}");
         $this->setPermission("cratekey.command.keyall");
         $this->plugin = $plugin;
     }
@@ -41,11 +41,11 @@ class KeyAllCommand extends Command implements PluginIdentifiableCommand {
             return false;
         }
         if(!isset($config["keys"][$args[0]])) {
-            $sender->sendMessage(TF::RED . "Key inesistente. Per la lista delle Key usa /keylist");
+            $sender->sendMessage($this->getPlugin()->translateString("keyall.keyNotExist", [$args[0]]));
             return false;
         }
         if(!is_numeric($args[1]) or $args[1] <= 0) {
-            $sender->sendMessage(TF::RED . "La quantità deve essere numerica e maggiore di 0.");
+            $sender->sendMessage($this->getPlugin()->translateString("keyall.wrongAmount", [$args[1]]));
             return false;
         }
         $keyID = $config["keys"][$args[0]]["ID"];
@@ -56,9 +56,9 @@ class KeyAllCommand extends Command implements PluginIdentifiableCommand {
                 ->setLore([$args[0]])
                 ->setCustomName($keyCustomName)
             );
-            $player->sendMessage(TF::YELLOW . "Hai ricevuto " . TF::RED . $args[1] . " " . TF::YELLOW . $args[0]);
+            $player->sendMessage($this->getPlugin()->translateString("keyall.receiveKey", [$args[1], $args[0]]));
         }
-        $sender->sendMessage(TF::YELLOW . "Hai dato " . TF::RED . $args[1] . " " . TF::YELLOW . $args[0] . " a tutti i player online!");
+        $sender->sendMessage($this->getPlugin()->translateString("keyall.giveKey", [$args[1], $args[0]]));
         return true;
     }
     
