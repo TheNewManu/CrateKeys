@@ -45,7 +45,7 @@ class Main extends PluginBase implements Listener {
             "keylist" => "\TheNewManu\CrateKey\Commands\KeyListCommand"
         ];
         foreach ($commands as $cmd => $class) {
-            $map->register("CrateKey", new $class($this));
+            $map->register(strtolower($this->getName()), new $class($this));
         }
     }
     
