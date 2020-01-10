@@ -1,13 +1,16 @@
-# Plugin by TheNewManu.
+###############_LANGUAGE_###############
 
-# Lista delle keys
-### Esempio ###
-# NomeKey:
-#   ID: id
-#   Damage: damage
-#   CustomName: Custom Name
-#   Description: Descrizione
-### Esempio ###
+language: eng
+
+###############_KEY-LIST_###############
+
+# Example:
+# KeyName:
+#   ID: ID of this key
+#   Damage: Damage of this key
+#   CustomName:  CustomName of this key
+#   Description: Description of this key
+
 keys:
   KeyTest:
     ID: 131
@@ -20,15 +23,16 @@ keys:
     CustomName: "§7-=[ §cKeyTest2 §7]=-"
     Description: "KeyTest2 Description"
 
-# Comandi da far eseguire all'apertura di una Key (Con rispettivi messaggi/title)
-### Esempio ###
-#  NomeKey:
-#  - command: givemoney {player} 100
-#    message: "Hai vinto 100 money"
-#    title: "Win"
-#    subtitle: "100$"
-#    spawn-item: "276:0:1" (id:damage:amount)
-### Esempio ###
+###############_KEY-REWARDS_###############
+
+# Example:
+# KeyName:
+# - command: Command
+#   message: Message to send to player
+#   title: Title to send to player
+#   subtitle: SubTitle to send to player
+#   spawn-item: "id:damage:amount" of the virtual item
+
 rewards:
   KeyTest:
   - command: "tell {player} Comando1"
