@@ -13,7 +13,5 @@ permissions:
             default: op
           cratekey.command.keyall:
             default: op
-          cratekey.command.givechest:
-            default: op
           cratekey.command.keylist:
             default: true
