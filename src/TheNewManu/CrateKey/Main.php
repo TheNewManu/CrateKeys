@@ -77,6 +77,7 @@ class Main extends PluginBase implements Listener {
             $pk->eventType = 1;
             $pk->eventData = 2;
             $player->dataPacket($pk);
+            $this->getScheduler()->scheduleDelayedTask(new CloseChest($this, $player, $chest), 15 * 3);
         }
     }
 
@@ -104,10 +105,10 @@ class Main extends PluginBase implements Listener {
          if($block instanceof EnderChest){
              if(isset($item->getLore()[0]) and isset($this->getAllKeys()[$item->getLore()[0]])){
                  $event->setCancelled(true);
+                 $item->pop();
+                 $player->getInventory()->setItemInHand($item);
                  $this->giveRewards($player, $item->getLore()[0], $block);
-                 $player->getInventory()->removeItem(ItemFactory::get($item->getId(), $item->getDamage(), 1));
                  $this->spawnOpenChest($player, $block);
-                 $this->getScheduler()->scheduleDelayedTask(new CloseChest($this, $player, $block), 15 * 3);
                  $level->addSound(new FizzSound($player));
                  $x = $block->getX() + 0.5;
                  $y = $block->getY();
