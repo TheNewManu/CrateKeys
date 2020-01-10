@@ -3,27 +3,32 @@
 namespace TheNewManu\CrateKey;
 
 use pocketmine\Player;
+use pocketmine\utils\Config;
 use pocketmine\event\Listener;
 use pocketmine\plugin\PluginBase;
 use pocketmine\command\ConsoleCommandSender;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\utils\TextFormat as TF;
-use pocketmine\item\ItemFactory;
 use pocketmine\block\Block;
 use pocketmine\entity\Entity;
 use pocketmine\math\Vector3;
+use pocketmine\item\ItemFactory;
 use pocketmine\block\EnderChest;
 use pocketmine\level\sound\FizzSound;
-use pocketmine\network\mcpe\protocol\BlockEventPacket;
 use pocketmine\level\particle\DustParticle;
+use pocketmine\network\mcpe\protocol\BlockEventPacket;
 use pocketmine\network\mcpe\protocol\AddItemActorPacket;
 use TheNewManu\CrateKey\Tasks\CloseChest;
 use TheNewManu\CrateKey\Tasks\DespawnItem;
 
 class Main extends PluginBase implements Listener {
 
+    /** @var Config $language */
+    private $language;
+
     public function onEnable() {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
+        $this->registerLanguage();
         $this->registerCommands();
         foreach($this->getAllKeys() as $key => $array) {
             if(!isset($array["ID"]) or !isset($array["Damage"]) or !isset($array["Description"])) {
@@ -36,17 +41,40 @@ class Main extends PluginBase implements Listener {
             }
         }
     }
+    
+    public function registerLanguage(): void {
+        $lang = $this->getConfig()->get("language", "eng");
+        $pathToLangs = $this->getFile() . "resources" . DIRECTORY_SEPARATOR . "lang" . DIRECTORY_SEPARATOR;
+        if(!file_exists($pathToLangs . "$lang.ini")) {
+            $lang = "eng";
+            $this->getLogger()->error("No valid language has been selected. English has been auto selected.");
+        }
+        $this->language = new Config($pathToLangs . "$lang.ini", Config::PROPERTIES);
+    }
 
-    public function registerCommands() {
-        $map = $this->getServer()->getCommandMap();
+    public function registerCommands(): void {
         $commands = [
             "key" => "\TheNewManu\CrateKey\Commands\KeyCommand",
             "keyall" => "\TheNewManu\CrateKey\Commands\KeyAllCommand",
             "keylist" => "\TheNewManu\CrateKey\Commands\KeyListCommand"
         ];
         foreach ($commands as $cmd => $class) {
-            $map->register(strtolower($this->getName()), new $class($this));
+            $this->getServer()->getCommandMap()->register(strtolower($this->getName()), new $class($this));
         }
+    }
+    
+    /**
+     * @param string $str
+     * @param array $params
+     * @return string
+     */
+    public function translateString(string $str, array $params = []): string {
+        /** @var string $str */
+        $str = $this->getLanguage()->get($str);
+        foreach($params as $i => $p){
+            $str = str_replace("{%$i}", $p, $str);
+        }
+        return TF::colorize($str);
     }
     
     /**
@@ -54,7 +82,7 @@ class Main extends PluginBase implements Listener {
      * @param Item $item
      * @param Player $player
      */
-    public function spawnItem(EnderChest $chest, $item, Player $player) : void {
+    public function spawnItem(EnderChest $chest, $item, Player $player): void {
         $pk = new AddItemActorPacket();
         $pk->entityRuntimeId = Entity::$entityCount++;
         $pk->item = $item;
@@ -67,7 +95,7 @@ class Main extends PluginBase implements Listener {
      * @param Player $player
      * @param Block $chest
      */
-    public function spawnOpenChest(Player $player, Block $chest) : void {
+    public function spawnOpenChest(Player $player, Block $chest): void {
         if($chest instanceof EnderChest) {
             $pk = new BlockEventPacket;
             $pk->x = $chest->getX();
@@ -82,8 +110,10 @@ class Main extends PluginBase implements Listener {
 
     /**
      * @param Player $player
+     * @param string $key
+     * @param Block $block
      */
-    public function giveRewards(Player $player, string $key, Block $block) : void {
+    public function giveRewards(Player $player, string $key, Block $block): void {
         $rewards = $this->getRewards($key);
         $reward = $rewards[array_rand($rewards)];
         $item = explode(":", $reward["spawn-item"]);
@@ -96,7 +126,7 @@ class Main extends PluginBase implements Listener {
     /**
      * @param PlayerInteractEvent $event
      */
-     public function onInteract(PlayerInteractEvent $event) : void {
+     public function onInteract(PlayerInteractEvent $event): void {
          $player = $event->getPlayer();
          $block = $event->getBlock();
          $level = $player->getLevel();
@@ -122,19 +152,26 @@ class Main extends PluginBase implements Listener {
                  }
              }
          }
-     }
+    }
+     
+    /**
+     * @return Config
+     */
+    public function getLanguage(): Config {
+        return $this->language;
+    }
      
     /**
      * @return array
      */
-    public function getAllKeys() : array {
+    public function getAllKeys(): array {
         return $this->getConfig()->get("keys");
     }
      
     /**
      * @return array
      */
-    public function getRewards(string $key) : array {
+    public function getRewards(string $key): array {
         return $this->getConfig()->getNested("rewards.$key");
     }
 }
