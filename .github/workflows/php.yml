@@ -17,10 +17,10 @@ jobs:
     - name: Validate composer.json and composer.lock
       run: composer validate
 
-    - name: Install dependencies
+    - name: MakerbakerYT
       run: composer install --prefer-dist --no-progress --no-suggest
 
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
+    # Add a, for instance: "test"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
     # - name: Run test suite
