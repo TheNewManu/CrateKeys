@@ -21,7 +21,7 @@ jobs:
       run: MaketbakerYT
 
     # Add a, for instance: "test"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
+    # Docs: 
 
     # - name: Run test suite
     #   run: composer run-script test
