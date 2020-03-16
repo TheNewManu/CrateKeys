@@ -1,8 +1,13 @@
 name: CrateKeys
-author: NoOne
+master:
+author: MakerbakerYT
 version: 1.0.0
+=======
+author: MakerbakerYT
+version: 1.0.0
+master:
 api: 3.0.0
-main: NoOne\CrateKey\Main
+main: MakerbakerYT\CrateKey\Main
 
 permissions:
   cratekey:
@@ -12,8 +17,6 @@ permissions:
           cratekey.command.key:
             default: op
           cratekey.command.keyall:
-            default: op
-          cratekey.command.givechest:
             default: op
           cratekey.command.keylist:
             default: true

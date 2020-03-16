@@ -19,7 +19,7 @@ class KeyListCommand extends Command implements PluginIdentifiableCommand {
      * @param Main $plugin
      */
     public function __construct(Main $plugin){
-        parent::__construct("keylist", "Vedi la lista drlle key e le loro info.", "Usage: /keylist");
+        parent::__construct("keylist", $plugin->translateString("keylist.description"), "Usage: /keylist");
         $this->plugin = $plugin;
     }
     
@@ -30,9 +30,9 @@ class KeyListCommand extends Command implements PluginIdentifiableCommand {
      * @return bool
      */
     public function execute(CommandSender $sender, string $commandLabel, array $args): bool {
-        $message = TF::BLUE . "Key List: " . TF::EOL;
+        $message = $this->getPlugin()->translateString("keylist.top") . TF::EOL;
         foreach($this->getPlugin()->getAllKeys() as $key => $array) {
-            $message .= TF::RED . $key . " -> " . TF::YELLOW . $array["Description"] . TF::EOL;
+            $message .= $this->getPlugin()->translateString("keylist.info", [$key, $array["Description"]]) . TF::EOL;
         }
         $sender->sendMessage($message);
         return true;
