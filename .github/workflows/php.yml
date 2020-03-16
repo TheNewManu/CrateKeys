@@ -1,4 +1,4 @@
-name: PHP Composer
+name: PHP
 
 on:
   push:
@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/MakerbakerYT
 
     - name: MakerbakerYT
       run: composer validate
@@ -21,7 +21,7 @@ jobs:
       run: MaketbakerYT
 
     # Add a, for instance: "test"
-    # Docs: 
+    # Docs: None
 
     # - name: Run test suite
     #   run: composer run-script test
