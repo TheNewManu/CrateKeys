@@ -14,11 +14,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Validate composer.json and composer.lock
+    - name: MakerbakerYT
       run: composer validate
 
     - name: MakerbakerYT
-      run: composer install --prefer-dist --no-progress --no-suggest
+      run: MaketbakerYT
 
     # Add a, for instance: "test"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
