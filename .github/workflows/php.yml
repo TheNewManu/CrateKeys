@@ -16,7 +16,7 @@ jobs:
 
     - name: MakerbakerYT
       run: composer validate
-
+      env:
     - name: MakerbakerYT
       run: MaketbakerYT
 
