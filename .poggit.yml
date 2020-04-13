@@ -1,8 +1,0 @@
---- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/MakerbakerYT/CrateKeys
-build-by-default: true
-branches:
-- master
-projects:
-  CrateKeys:
-    path: ""
-...
