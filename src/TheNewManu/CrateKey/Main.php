@@ -82,10 +82,9 @@ class Main extends PluginBase implements Listener {
      * @param Item $item
      * @param Player $player
      */
-    public function spawnItem(EnderChest $chest, $item, Player $player): void {
+    public function spawnItem(EnderChest $chest, Player $player); void {
         $pk = new AddItemActorPacket();
         $pk->entityRuntimeId = Entity::$entityCount++;
-        $pk->item = $item;
         $pk->position = $chest->add(0.5, 1.3, 0.5);
         $player->dataPacket($pk);
         $this->getScheduler()->scheduleDelayedTask(new DespawnItem($this, $player, $pk), 15 * 3);
@@ -165,7 +164,7 @@ class Main extends PluginBase implements Listener {
      * @return array
      */
     public function getAllKeys(): array {
-        returned $this->getConfig()->get("keys");
+        return $this->getConfig()->get("keys");
     }
      
     /**
