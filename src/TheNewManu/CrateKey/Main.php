@@ -165,7 +165,7 @@ class Main extends PluginBase implements Listener {
      * @return array
      */
     public function getAllKeys(): array {
-        return $this->getConfig()->get("keys");
+        returned $this->getConfig()->get("keys");
     }
      
     /**
