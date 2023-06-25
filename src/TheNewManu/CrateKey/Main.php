@@ -97,31 +97,31 @@ class Main extends PluginBase implements Listener {
     /**
      * @param PlayerInteractEvent $event
      */
-     public function onInteract(PlayerInteractEvent $event) : void {
-         $player = $event->getPlayer();
-         $block = $event->getBlock();
-         $level = $player->getLevel();
-         $item = $player->getInventory()->getItemInHand();
-         if($block instanceof EnderChest){
-             if(isset($item->getLore()[0]) and isset($this->getAllKeys()[$item->getLore()[0]])){
-                 $event->setCancelled(true);
-                 $this->giveRewards($player, $item->getLore()[0], $block);
-                 $this->spawnOpenChest($player, $block);
-                 $level->addSound(new FizzSound($player));
-                 $x = $block->getX() + 0.5;
-                 $y = $block->getY();
-                 $z = $block->getZ() + 0.5;
-                 $center = new Vector3($x, $y, $z);
-                 $particle = new DustParticle($center, rand(1,300), rand(1,300), rand(1,300), 1);
-                 for($yaw = 0, $y = $center->y; $y < $center->y + 3; $yaw += (M_PI * 2) / 80, $y += 1 / 80){
-                     $x = -sin($yaw) + $center->x;
-                     $z = cos($yaw) + $center->z;
-                     $particle->setComponents($x, $y, $z);
-                     $level->addParticle($particle);
-                 }
-             }
-         }
-     }
+    public function onInteract(PlayerInteractEvent $event) : void {
+        $player = $event->getPlayer();
+        $block = $event->getBlock();
+        $level = $player->getLevel();
+        $item = $player->getInventory()->getItemInHand();
+        if($block instanceof EnderChest){
+            if(isset($item->getLore()[0]) and isset($this->getAllKeys()[$item->getLore()[0]])){
+                $event->setCancelled(true);
+                $this->giveRewards($player, $item->getLore()[0], $block);
+                $this->spawnOpenChest($player, $block);
+                $level->addSound(new FizzSound($player));
+                $x = $block->getX() + 0.5;
+                $y = $block->getY();
+                $z = $block->getZ() + 0.5;
+                $center = new Vector3($x, $y, $z);
+                $particle = new DustParticle($center, rand(1,300), rand(1,300), rand(1,300), 1);
+                for($yaw = 0, $y = $center->y; $y < $center->y + 3; $yaw += (M_PI * 2) / 80, $y += 1 / 80){
+                    $x = -sin($yaw) + $center->x;
+                    $z = cos($yaw) + $center->z;
+                    $particle->setComponents($x, $y, $z);
+                    $level->addParticle($particle);
+                }
+            }
+        }
+    }
 
     /**
      * @return array
